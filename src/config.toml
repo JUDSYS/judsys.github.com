@@ -4,22 +4,27 @@ title = "JUDSYS"
 theme = "hyde"
 
 DefaultContentLanguage = "en"
-copyright = "Everything is mine"
 defaultContentLanguageInSubdir = true
 
 [params]
   themeColor = "theme-base-0d"
+  copyright = "G. Queiroz"
 
 [languages]
   [languages.en]
-    title = "My blog"
+    title = "JUDSYS"
+    description = "A digital signature standard for the common folks."
+    languageName = "🇬🇧 English"
     weight = 1
+    #copyright = "G. Queiroz"
   [[languages.en.menu.main]]
     url    = "/en/about"
     name   = "About"
     weight = 0
   [languages.pt]
-    title = "Meu blog"
+    title = "JUDSYS"
+    description = "Um padrão de assiantura digital para pessoas comuns."
+    languageName = "🇧🇷 Português"
     weight = 2
   [[languages.pt.menu.main]]
     url    = "/pt/about"
