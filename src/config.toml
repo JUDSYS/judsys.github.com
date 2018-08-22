@@ -1,0 +1,27 @@
+baseURL = "https://judsys.github.io"
+languageCode = "en"
+title = "JUDSYS"
+theme = "hyde"
+
+DefaultContentLanguage = "en"
+copyright = "Everything is mine"
+defaultContentLanguageInSubdir = true
+
+[params]
+  themeColor = "theme-base-0d"
+
+[languages]
+  [languages.en]
+    title = "My blog"
+    weight = 1
+  [[languages.en.menu.main]]
+    url    = "/en/about"
+    name   = "About"
+    weight = 0
+  [languages.pt]
+    title = "Meu blog"
+    weight = 2
+  [[languages.pt.menu.main]]
+    url    = "/pt/about"
+    name   = "Sobre"
+    weight = 0
