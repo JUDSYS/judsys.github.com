@@ -1,4 +1,4 @@
-baseURL = "https://judsys.github.io"
+baseURL = "https://judsys.github.io/"
 languageCode = "en"
 title = "JUDSYS"
 theme = "hyde"
