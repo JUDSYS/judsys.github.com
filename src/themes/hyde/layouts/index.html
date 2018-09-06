@@ -1,5 +1,6 @@
 {{ define "main" -}}
 <div class="post">
+  <span class="post-date">{{ i18n "Last_update"}}: {{ .Date.Format "2006-01-02" }}</span>
   {{ .Content }}
 </div>
 

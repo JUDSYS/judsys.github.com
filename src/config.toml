@@ -15,11 +15,10 @@ defaultContentLanguageInSubdir = true
     title = "JUDSYS"
     description = "A digital signature standard for the common folks."
     languageName = "🇬🇧 English"
-    weight = 1
-    #copyright = "G. Queiroz"
+    weight = 2
   [[languages.en.menu.main]]
-    url    = "/en/about"
-    name   = "About"
+    url    = "/en/spec"
+    name   = "Spec"
     weight = 0
   [languages.pt]
     title = "JUDSYS"
@@ -27,6 +26,6 @@ defaultContentLanguageInSubdir = true
     languageName = "🇧🇷 Português"
     weight = 2
   [[languages.pt.menu.main]]
-    url    = "/pt/about"
-    name   = "Sobre"
+    url    = "/pt/spec"
+    name   = "Especificação"
     weight = 0

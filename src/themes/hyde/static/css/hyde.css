@@ -24,6 +24,15 @@
  * Themes
  */
 
+/* Customizations: */
+div.content p, div.content li {
+  text-align: justify;
+}
+@media print, (min-width: 68em) {
+  html, p, li {
+    text-rendering: optimizeLegibility;
+  }
+}
 
 /*
  * Global resets

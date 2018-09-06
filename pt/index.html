@@ -40,7 +40,7 @@
     
     <ul class="sidebar-nav">
       <li><a href="/pt/">Início</a> </li>
-      <li><a href="/pt/about"> Sobre </a></li>
+      
     </ul>
 
     <ul class="sidebar-nav">
@@ -58,7 +58,46 @@
 
     <div class="content container">
     <div class="post">
-  <p>Índice</p>
+  
+
+<h1 id="motivações">Motivações</h1>
+
+<p>Atualmente, o ITI, órgão responsável pela ICP-Brasil, indica três padrões: CAdES, XAdES e PAdES.</p>
+
+<p>Como todos eles são baseados no X.509 que é usado no SSL, deveria haver uma abundância de boas bibliotecas de software e bons aplicativos para usuários finais para, pelo menos, um desses padrões.</p>
+
+<p>Esse não é o caso. Embora houve esforços para escrever bibliotecas de código aberto e aplicativos para a ICP-Brasil, eles são difíceis de achar e parecem inacabados e abandonados.</p>
+
+<p>O ITI provê uma ferramenta online para verificação de assinaturas, mas apenas para o CAdES e não aprece funcionar bem.</p>
+
+<p>PAdES é um monstro de seu próprio tipo. Na tentativa de replicar a experiência do papel no mundo digital, um arquivo PDF pode ser assinado, editado e reassinado por outra pessoa de forma com que sambos tenham assinado versões diferences do documento no mesmo arquivo. Isso é tanto difícil de implementar, quanto difícil de explicar para os usuários finais.</p>
+
+<p>Para deixar as coisas ainda piores, leitores de PDF quase nunca vem com as autoridades certificadores necessárias para verificar as assinaturas digitais da ICP-Brasil.</p>
+
+<p>Talvez como resultado dessa bagunça de diferentes padrões, o ITI admite que ninguém é obrigado a aceitar assinaturas digitais no Brasil:</p>
+
+<blockquote>
+<p>Diante da autenticidade gerada pela utilização dos certificados digitais ICP-Brasil, é correto asseverar que todos (órgãos públicos, bancos, particulares, etc.) devem aceitá-lo?</p>
+
+<p>A resposta é negativa. Conforme visto, a ICP-Brasil confere sim validade jurídica às manifestações eletrônicas. Porém, nenhuma entidade ou órgão público, nem mesmo algum agente privado, é obrigado a aceitar, <em>ex lege</em>, os documentos eletrônicos assinados digitalmente.</p>
+
+<p>E isso por um motivo simples: inobstante vivermos em uma sociedade da informação, muitas entidades, tanto públicas quanto privadas, ainda não se encontram aderentes a esse novo paradigma tecnológico, de modo que podem, simplesmente, não ter os equipamentos necessários para receber, verificar e armazenar os documentos assinados digitalmente.</p>
+
+<hr />
+
+<p>Fonte: <a href="http://www.iti.gov.br/perguntas-frequentes/41-perguntas-frequentes/567-questoes-juridicas#r21">http://www.iti.gov.br/perguntas-frequentes/41-perguntas-frequentes/567-questoes-juridicas#r21</a>.</p>
+</blockquote>
+
+<p>Essa situação é inaceitável. Nós precisamos de um padrão de assinatura digital que:</p>
+
+<ol>
+<li>Seja fácil para programadores implementarem, incluindo bibliotecas em várias linguagens.</li>
+<li>Seja fácil de usar para pessoas comuns no dia a dia.</li>
+<li>Tenha regras estritas para evitar problemas de interoperabilidade.</li>
+<li>Tenha aceitação obrigatória por lei.</li>
+</ol>
+
+<p>O JUDSYS-1 é uma tentativa de criar um padrão de assinaturas digitais que atenda aos três primeiros pontos. E que, esperançosamente, atenda o quarto em um futuro (nem tão) próximo.</p>
 
 </div>
 
