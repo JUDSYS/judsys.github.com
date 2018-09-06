@@ -3,7 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://judsys.github.io/pt/spec/</loc>
+    <lastmod>2018-09-05T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://judsys.github.io/en/spec/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://judsys.github.io/pt/spec/"
+                />
+  </url>
+  
+  <url>
     <loc>https://judsys.github.io/pt/</loc>
+    <lastmod>2018-09-05T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>JUDSYS</title>
+    <title>Index Page on JUDSYS</title>
     <link>https://judsys.github.io/en/</link>
-    <description>Recent content on JUDSYS</description>
+    <description>Recent content in Index Page on JUDSYS</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <lastBuildDate>Wed, 05 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://judsys.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Specification</title>
+      <link>https://judsys.github.io/en/spec/</link>
+      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://judsys.github.io/en/spec/</guid>
+      <description>The specification is beign developed on github.com/JUDSYS/v1Spec.
+Published versions:
+ 2018-09-05 - draft-judsys1-01 (very rough draft) HTML | TXT | XML  </description>
+    </item>
     
   </channel>
 </rss>
