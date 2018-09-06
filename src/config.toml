@@ -15,7 +15,7 @@ defaultContentLanguageInSubdir = true
     title = "JUDSYS"
     description = "A digital signature standard for the common folks."
     languageName = "🇬🇧 English"
-    weight = 2
+    weight = 1
   [[languages.en.menu.main]]
     url    = "/en/spec"
     name   = "Spec"
