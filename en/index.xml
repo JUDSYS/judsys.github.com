@@ -6,10 +6,22 @@
     <description>Recent content in Index Page on JUDSYS</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 05 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://judsys.github.io/en/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Open Questions</title>
+      <link>https://judsys.github.io/en/open_questions/</link>
+      <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://judsys.github.io/en/open_questions/</guid>
+      <description>If you want to help or comment on this project, please file an issue on GitHub (English only) or use one of the following: the Portuguese contact form and the English contact form.
+Algorithm Selection Only one algorithm will be chosen for each of the following categories: hashing, symmetric encryption, asymmetric encryption, signing and key derivation.
+This restriction is to make the standard easier to implement.
+   Function Main candidates     Hashing SHA-3-512   Symmetric encryption AES   Asymmetric encryption RSA   Signing RSA, ECDSA, Ed25519   Key derivation.</description>
+    </item>
     
     <item>
       <title>Specification</title>

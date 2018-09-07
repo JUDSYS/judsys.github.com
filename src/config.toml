@@ -17,6 +17,10 @@ defaultContentLanguageInSubdir = true
     languageName = "🇬🇧 English"
     weight = 1
   [[languages.en.menu.main]]
+    url    = "/en/open_questions"
+    name   = "Open Questions"
+    weight = 1
+  [[languages.en.menu.main]]
     url    = "/en/spec"
     name   = "Spec"
     weight = 0
@@ -25,6 +29,10 @@ defaultContentLanguageInSubdir = true
     description = "Um padrão de assiantura digital para pessoas comuns."
     languageName = "🇧🇷 Português"
     weight = 2
+  [[languages.pt.menu.main]]
+    url    = "/en/open_questions"
+    name   = "Questões em Aberto"
+    weight = 1
   [[languages.pt.menu.main]]
     url    = "/pt/spec"
     name   = "Especificação"

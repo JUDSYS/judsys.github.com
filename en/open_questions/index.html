@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.47.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Open Questions &middot; JUDSYS</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="JUDSYS" />
+
+  
+</head>
+
+  <body class="theme-base-0d ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/en/"><h1>JUDSYS</h1></a>
+      <p class="lead">
+      A digital signature standard for the common folks.
+      </p>
+    </div>
+    
+    <ul class="sidebar-nav">
+      <li><a href="/en/">Home</a> </li>
+      <li><a href="/en/open_questions"> Open Questions </a></li><li><a href="/en/spec"> Spec </a></li>
+    </ul>
+
+    <ul class="sidebar-nav">
+  
+  <li><a href="https://judsys.github.io/en/open_questions/">🇬🇧 English</a></li>
+  
+</ul>
+
+
+    <p>G. Queiroz &copy; 2018.</p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Open Questions</h1>
+  <span class="post-date">2018-09-06</span>
+  
+<aside>
+    <header>
+    <h2>Table of Contents</h2>
+    </header>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#algorithm-selection">Algorithm Selection</a></li>
+<li><a href="#general">General</a>
+<ul>
+<li><a href="#nameless-certificates">Nameless Certificates</a></li>
+<li><a href="#accidental-changes">Accidental Changes</a></li>
+<li><a href="#certificates-for-software">Certificates for Software</a></li>
+<li><a href="#smart-phones-as-smart-cards">Smart-phones as Smart-cards</a></li>
+<li><a href="#dynamic-content">Dynamic content</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    <hr/>
+</aside>
+
+  
+
+<p>If you want to help or comment on this project, please <a href="https://github.com/JUDSYS/v1Spec/issues">file an issue on GitHub</a> (English only) or use one of the following: the <a href="https://goo.gl/forms/0ZvcYGGLDq9EA22C3">Portuguese contact form</a> and the <a href="https://goo.gl/forms/uijCieF4cWvsPTHX2">English contact form</a>.</p>
+
+<h2 id="algorithm-selection">Algorithm Selection</h2>
+
+<p>Only one algorithm will be chosen for each of the following categories: hashing, symmetric encryption, asymmetric encryption, signing and key derivation.</p>
+
+<p>This restriction is to make the standard easier to implement.</p>
+
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Main candidates</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Hashing</td>
+<td><a href="https://en.wikipedia.org/wiki/SHA-3">SHA-3-512</a></td>
+</tr>
+
+<tr>
+<td>Symmetric encryption</td>
+<td><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></td>
+</tr>
+
+<tr>
+<td>Asymmetric encryption</td>
+<td><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a></td>
+</tr>
+
+<tr>
+<td>Signing</td>
+<td><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>, <a href="https://en.wikipedia.org/wiki/ECDSA">ECDSA</a>, <a href="https://en.wikipedia.org/wiki/EdDSA#Ed25519">Ed25519</a></td>
+</tr>
+
+<tr>
+<td>Key derivation.</td>
+<td><a href="https://en.wikipedia.org/wiki/Argon2">Argon2id</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="general">General</h2>
+
+<h3 id="nameless-certificates">Nameless Certificates</h3>
+
+<p>Nameless certificates are self-signed certificates that don&rsquo;t carry subject attributes including the name.</p>
+
+<p>They are intended to let people start using JUDSYS without having to pay for a CA to issue them a certificate.</p>
+
+<p>Their lack of names is intended to help security as many people would probably just ignore some message telling them that this certificate was not issued by a CA. The unfortunate side effect, however, is that people would be force to keep a sort of address book to known which certificate belongs to who.</p>
+
+<p>This address book may be incorporated into the applications and even sync with Google Contacts or a similar service.</p>
+
+<p>There is also the issue of revocation. A nameless certificate may end up being irrevocable.</p>
+
+<p>While they may remind of PGP, they do not form a web-of-trust. This is intentional, as webs-of-trust can be hard to implement and to explain to users.</p>
+
+<h3 id="accidental-changes">Accidental Changes</h3>
+
+<p>Suppose Alice signs a document and sends document file and the signature file to Bob. When he receives it, he opens the document and accidentally enters a new line or makes some other tiny change. The signature will become invalid.</p>
+
+<p>One option for solving this problem is to use error correction mechanisms like <a href="https://en.wikipedia.org/wiki/Parchive">PAR2</a>. The idea is to inform the user that the document was later and ask them if they want to fix the file.</p>
+
+<p>The downside is that users will have to deal with three separate files: the original document, the signature and the error correction file.</p>
+
+<h3 id="certificates-for-software">Certificates for Software</h3>
+
+<p>Should software acting in the name of someone receive its own certificate? This may help with security at the expense of making the JUDSYS-1 complicated.</p>
+
+<p>Who should issue those certificates? The CAs may be an obvious choice, but this adds expense to end users. Another option is to use a combination of nameless certificates and proofs of attribute.</p>
+
+<h3 id="smart-phones-as-smart-cards">Smart-phones as Smart-cards</h3>
+
+<p>Should smart-cards be allowed? They can help with security, but it is often hard to implement support for things that use external hardware. In the (somewhat common) worst scenario, some implementations will support them and others not, thus reducing interoperability.</p>
+
+<p>One possible solution is to use smart-phones as smart-cards replacements. The user would have an app installed on their phone that is a full JUDSYS-1 implementation but whose keys remain in a secure-<em>ish</em> storage that only that app has access to.</p>
+
+<p>To ease the user, desktop applications and websites could show a QR Code with a signature request that informs the file hash and size. The user would scan that QR Code with his app and confirm the signature with a password or fingerprint (not ideal but biometrics may be more secure than dump passwords such as 0000).</p>
+
+<p>This QR Code system does lead to few security problems (what if an attacker gives the wrong hash?) but they do not seem to be so much worse then and evil implementation or attacker replacing the document to be signed right before and right after the user signs.</p>
+
+<h3 id="dynamic-content">Dynamic content</h3>
+
+<p>Should implementations be required to inform the user when dynamic content is present? What file formats must be required to check for dynamic content?</p>
+
+<p>See section <a href="https://judsys.github.io/specs/draft-judsys1-latest.html#rfc.section.9.2">9.2. Dynamic Content</a> of the JUDSYS-1 spec.</p>
+
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

@@ -40,7 +40,7 @@
     
     <ul class="sidebar-nav">
       <li><a href="/pt/">Início</a> </li>
-      <li><a href="/pt/spec"> Especificação </a></li>
+      <li><a href="/en/open_questions"> Questões em Aberto </a></li><li><a href="/pt/spec"> Especificação </a></li>
     </ul>
 
     <ul class="sidebar-nav">
@@ -58,7 +58,8 @@
 
     <div class="content container">
     <div class="post">
-  <span class="post-date">Última atualização: 2018-09-05</span>
+  <span class="post-date">Última atualização: 2018-09-06</span>
+  
   
 
 <h1 id="introdução">Introdução</h1>
@@ -68,16 +69,22 @@
 <h2 id="princípios-de-design">Princípios de Design</h2>
 
 <ol>
-<li>Manter o mais simples possível sem sacrificar usabilidade.</li>
+<li>Ser o mais simples possível sem sacrificar usabilidade.</li>
 <li>Ser fácil tanto para programadores quanto para usuários finais.</li>
+<li>Priorizar interoperabilidade.</li>
 <li>Usável internacionalmente.</li>
-<li>Usar apenas algorítimos bem conhecidos.</li>
-<li>Preferir algorítimos resistentes a computadores quânticos.</li>
+<li>Usar apenas algorítimos bem conhecidos e preferir aqueles resistentes a computadores quânticos.</li>
 </ol>
 
 <h2 id="status-atual">Status atual</h2>
 
 <p>A especificação não está nem na metade ainda.</p>
+
+<h2 id="por-que-o-nome">Por que o nome?</h2>
+
+<p>JUDSYS-1 significa: Padrão de Sistema de Assinaturas Digitais Unificado JSON (original em inglês: <em>JSON Unified Digital Signatures System Standard 1</em>).</p>
+
+<p>Eu tambem gosto de como o nome soa como <em>judicial</em> e <em>juris</em>.</p>
 
 <h1 id="contribua">Contribua</h1>
 
@@ -121,6 +128,20 @@
 </ol>
 
 <p>O JUDSYS é uma tentativa de criar um padrão de assinaturas digitais que atenda aos três primeiros pontos. E que, esperançosamente, atenda o quarto em um futuro (nem tão) próximo.</p>
+
+<h1 id="algumas-funcionalidades-e-não-funcionalidades-muitas-são-apenas-ideias-ainda">Algumas funcionalidades e não-funcionalidades (muitas são apenas ideias ainda)</h1>
+
+<ul>
+<li>Apenas assinaturas desanexadas/separadas. Isso é para facilitar backups, interoperabilidade e a vida do usuário.</li>
+<li>Todos podem emitir comprovantes de atributo (uma ideia similar aos certificados de atributo). Isso facilita com que empresas mudem o cargo que deve aparecer nas assinaturas feitas por seus funcionários. Isso também facilita com que pessoas emitam procurações.</li>
+<li>Nada de cadeias complicadas de certificação. Só várias árvores, cada uma com uma única AC.</li>
+<li>APIs RESTful unificadas para Autoridades de Carimbo de Tempo e verificação do status do certificado.</li>
+<li>Arquivos JSON para facilitar implementação e depuração.</li>
+<li>Suporte a Unicode em todo lugar.</li>
+<li>Regras sobre interface de usuário para garantir que os usuários tenham facilidade em trocar de implementações.</li>
+<li>Regras sobre como misturar assinaturas em papel e digitais.</li>
+<li>Regras sobre &ldquo;digitalização autenticada&rdquo;.</li>
+</ul>
 
 </div>
 

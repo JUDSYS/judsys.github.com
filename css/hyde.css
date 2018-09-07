@@ -33,6 +33,16 @@ div.content p, div.content li {
     text-rendering: optimizeLegibility;
   }
 }
+td ul, td li {
+  margin-bottom: 0;
+}
+nav#TableOfContents ul {
+  list-style: none;
+  padding-left: 1em;
+}
+nav#TableOfContents > ul {
+  padding-left: 0;
+}
 
 /*
  * Global resets

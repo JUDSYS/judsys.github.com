@@ -1,8 +1,9 @@
 ---
 title: "Index Page"
-date: 2018-09-05
+date: 2018-09-06
 draft: false
 type: page
+toc: true
 ---
 
 # Introduction
@@ -13,13 +14,19 @@ JUDSYS is a project to develop a new digital signature standard and end user app
 
   1. Keep it as simple as possible without sacrificing usability.
   2. Make it easy for programmers as well as end users.
-  3. Internationally usable.
-  4. Use only well known algorithms.
-  5. Prefer quantum resistant algorithms.
+  3. Prioritize interoperability.
+  4. Internationally usable.
+  5. Use only well known algorithms and prefer quantum resistant ones.
 
 ## Current Status
 
 The specification draft is not even half complete.
+
+## Why the name?
+
+JUDSYS-1 means: JSON Unified Digital Signatures System Standard 1.
+
+I also like how the name sounds like *judicial* and *juris*. 
 
 # Contribute
 
@@ -60,4 +67,15 @@ This situation is unacceptable. We need a digital signature standard that:
 
 JUDSYS aims to provide a digital signature standard that address the first there points. And, hopefully, this standard may fulfil the fourth point in the (not so) near future.
 
+# Some features and non-features (many are still just ideas)
+
+  * Only detached signatures. This is to make backups, interoperability and user life easier.
+  * Anyone can issue proofs of attribute (a similar idea to attribute certificates). This makes it easy for companies to change job titles that should appear on signatures made by its employees. This also makes it easier for people to allow other to act in their name.
+  * No complicated certification chain. Just multiple trees, each with a single root CA.
+  * Unified RESTful APIs for time-stamp authorities and checking the certificate status.
+  * JSON files to ease implementation and debugging.
+  * Unicode support everywhere.
+  * Rules about UI to ensure users have an easy time switching from one implementation to another.
+  * Rules about how to mix paper and digital signatures.
+  * Rules about "trusted scans".
 

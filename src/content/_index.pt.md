@@ -1,6 +1,6 @@
 ---
 title: "Página de Índice"
-date: 2018-09-05
+date: 2018-09-06
 draft: false
 type: page
 ---
@@ -11,15 +11,21 @@ JUDSYS é um projeto para desenvolver um novo padrão de assinatura digital, bem
 
 ## Princípios de Design
 
-  1. Manter o mais simples possível sem sacrificar usabilidade.
+  1. Ser o mais simples possível sem sacrificar usabilidade.
   2. Ser fácil tanto para programadores quanto para usuários finais.
-  3. Usável internacionalmente.
-  4. Usar apenas algorítimos bem conhecidos.
-  5. Preferir algorítimos resistentes a computadores quânticos.
+  3. Priorizar interoperabilidade.
+  4. Usável internacionalmente.
+  5. Usar apenas algorítimos bem conhecidos e preferir aqueles resistentes a computadores quânticos.
 
 ## Status atual
 
 A especificação não está nem na metade ainda.
+
+## Por que o nome?
+
+JUDSYS-1 significa: Padrão de Sistema de Assinaturas Digitais Unificado JSON (original em inglês: *JSON Unified Digital Signatures System Standard 1*).
+
+Eu tambem gosto de como o nome soa como *judicial* e *juris*.
 
 # Contribua
 
@@ -60,3 +66,14 @@ Essa situação é inaceitável. Nós precisamos de um padrão de assinatura dig
 
 O JUDSYS é uma tentativa de criar um padrão de assinaturas digitais que atenda aos três primeiros pontos. E que, esperançosamente, atenda o quarto em um futuro (nem tão) próximo.
 
+# Algumas funcionalidades e não-funcionalidades (muitas são apenas ideias ainda)
+
+  * Apenas assinaturas desanexadas/separadas. Isso é para facilitar backups, interoperabilidade e a vida do usuário.
+  * Todos podem emitir comprovantes de atributo (uma ideia similar aos certificados de atributo). Isso facilita com que empresas mudem o cargo que deve aparecer nas assinaturas feitas por seus funcionários. Isso também facilita com que pessoas emitam procurações.
+  * Nada de cadeias complicadas de certificação. Só várias árvores, cada uma com uma única AC.
+  * APIs RESTful unificadas para Autoridades de Carimbo de Tempo e verificação do status do certificado.
+  * Arquivos JSON para facilitar implementação e depuração.
+  * Suporte a Unicode em todo lugar.
+  * Regras sobre interface de usuário para garantir que os usuários tenham facilidade em trocar de implementações.
+  * Regras sobre como misturar assinaturas em papel e digitais.
+  * Regras sobre "digitalização autenticada".
