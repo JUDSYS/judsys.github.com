@@ -76,6 +76,6 @@ This QR Code system does lead to few security problems (what if an attacker give
 
 Should implementations be required to inform the user when dynamic content is present? What file formats must be required to check for dynamic content?
 
-See section 9.2. Dynamic Content of the JUDSYS-1 spec ([link for version 01]((https://judsys.github.io/specs/draft-judsys1-01.html#rfc.section.9.2)).
+See section [9.2. Dynamic Content](/specs/draft-judsys1-latest.html#rfc.section.9.2) of the JUDSYS-1 spec.
 
 
