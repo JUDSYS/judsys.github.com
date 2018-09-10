@@ -1,6 +1,6 @@
 ---
 title: "Open Questions"
-date: 2018-09-06
+date: 2018-09-09
 draft: false
 type: page
 toc: true
@@ -21,7 +21,7 @@ This restriction is to make the standard easier to implement.
 | Symmetric encryption    | [AES]                       |
 | Asymmetric encryption   | [RSA]                       |
 | Signing                 | [RSA], [ECDSA], [Ed25519]   |
-| Key derivation.         | [Argon2id]                  |
+| Key derivation          | [Argon2id]                  |
 
 [SHA-3-512]: https://en.wikipedia.org/wiki/SHA-3
 [AES]: https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
@@ -48,7 +48,7 @@ While they may remind of PGP, they do not form a web-of-trust. This is intention
 
 ### Accidental Changes
 
-Suppose Alice signs a document and sends document file and the signature file to Bob. When he receives it, he opens the document and accidentally enters a new line or makes some other tiny change. The signature will become invalid.
+Suppose Alice signs a document and sends document file and the signature file to Bob. When he receives it, he opens the document and accidentally enters a new line or makes some other tiny change. The signature then becomes invalid.
 
 One option for solving this problem is to use error correction mechanisms like [PAR2]. The idea is to inform the user that the document was later and ask them if they want to fix the file.
 

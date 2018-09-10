@@ -58,7 +58,7 @@
 
     <div class="content container">
     <div class="post">
-  <span class="post-date">Last update: 2018-09-06</span>
+  <span class="post-date">Last update: 2018-09-09</span>
   
 <aside>
     <header>
@@ -84,7 +84,11 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>JUDSYS is a project to develop a new digital signature standard and end user applications that is intended to be used on offices and businesses.</p>
+<p>JUDSYS-1 is a standard meant to replace CMS/CAdES, XML-DSIG/XAdES, PAdES (PDF) and other digital signature systems.</p>
+
+<p>The JUDSYS project aims to develop both the standard end user applications.</p>
+
+<p>This is mainly intended for Brazil, but it should be able to work for other countries with minimal or no changes.</p>
 
 <h2 id="design-principles">Design Principles</h2>
 
@@ -152,13 +156,15 @@
 <h1 id="some-features-and-non-features-many-are-still-just-ideas">Some features and non-features (many are still just ideas)</h1>
 
 <ul>
-<li>Only detached signatures. This is to make backups, interoperability and user life easier.</li>
-<li>Anyone can issue proofs of attribute (a similar idea to attribute certificates). This makes it easy for companies to change job titles that should appear on signatures made by its employees. This also makes it easier for people to allow other to act in their name.</li>
-<li>No complicated certification chain. Just multiple trees, each with a single root CA.</li>
-<li>Unified RESTful APIs for time-stamp authorities and checking the certificate status.</li>
-<li>JSON files to ease implementation and debugging.</li>
 <li>Unicode support everywhere.</li>
-<li>Rules about UI to ensure users have an easy time switching from one implementation to another.</li>
+<li>Standardized file extensions.</li>
+<li>Only two signature types: regular and timestamped.</li>
+<li>Only detached signatures. This is to make backups, interoperability and user life easier.</li>
+<li>Simple and consistent JSON syntax with base64 to avoid canonicalization problems.</li>
+<li>Minimal number of allowed algorithms in order to make implementations and interoperability easier.</li>
+<li>Single document for all the rules. (timestamps, CA rules, hardware interaction, user interaction and naming conventions)</li>
+<li>Anyone can issue proofs of attribute (a similar idea to attribute certificates). This makes it easy for companies to change job titles that should appear on signatures made by its employees. This also makes it easier for people to allow other to act in their name.</li>
+<li>Standardized web APIs for time-stamp authorities and checking the certificate status.</li>
 <li>Rules about how to mix paper and digital signatures.</li>
 <li>Rules about &ldquo;trusted scans&rdquo;.</li>
 </ul>

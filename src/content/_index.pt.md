@@ -1,6 +1,6 @@
 ---
 title: "Página de Índice"
-date: 2018-09-06
+date: 2018-09-09
 draft: false
 type: page
 ---
@@ -8,6 +8,12 @@ type: page
 # Introdução
 
 JUDSYS é um projeto para desenvolver um novo padrão de assinatura digital, bem como aplicativos para usuários finais, com o objetivo de ser usado em escritórios e negócios.
+
+JUDSYS-1 é um padrão pensado para substituir o CMS/CAdES, XML-DSIG/XAdES, PAdES (PDF) e outros sistemas de assinatura digital.
+
+O projeto JUDSYS tem por objetivo desenvolver tanto o padrão quanto aplicativos para usuários finais.
+
+Isto é primariamente pensado para o Brasil, mas deve funcionar em outros países com mínimas ou até nenhuma mudança.
 
 ## Princípios de Design
 
@@ -25,7 +31,7 @@ A especificação não está nem na metade ainda.
 
 JUDSYS-1 significa: Padrão de Sistema de Assinaturas Digitais Unificado JSON (original em inglês: *JSON Unified Digital Signatures System Standard 1*).
 
-Eu tambem gosto de como o nome soa como *judicial* e *juris*.
+Eu também gosto de como o nome soa como *judicial* e *juris*.
 
 # Contribua
 
@@ -68,12 +74,14 @@ O JUDSYS é uma tentativa de criar um padrão de assinaturas digitais que atenda
 
 # Algumas funcionalidades e não-funcionalidades (muitas são apenas ideias ainda)
 
-  * Apenas assinaturas desanexadas/separadas. Isso é para facilitar backups, interoperabilidade e a vida do usuário.
-  * Todos podem emitir comprovantes de atributo (uma ideia similar aos certificados de atributo). Isso facilita com que empresas mudem o cargo que deve aparecer nas assinaturas feitas por seus funcionários. Isso também facilita com que pessoas emitam procurações.
-  * Nada de cadeias complicadas de certificação. Só várias árvores, cada uma com uma única AC.
-  * APIs RESTful unificadas para Autoridades de Carimbo de Tempo e verificação do status do certificado.
-  * Arquivos JSON para facilitar implementação e depuração.
-  * Suporte a Unicode em todo lugar.
-  * Regras sobre interface de usuário para garantir que os usuários tenham facilidade em trocar de implementações.
-  * Regras sobre como misturar assinaturas em papel e digitais.
+  * Suporte a Unicode em todos os campos.
+  * Extensões de arquivo padronizadas.
+  * Apenas dois tipos de assinatura: regular e com carimbo de tempo.
+  * Apenas assinaturas desanexadas. Tisso torna backups, interoperabilidade e a vida do usuário mais fáceis.
+  * Sintaxe JSON simples e consistente usando base64 para evitar problemas de canonização.
+  * Menor número de algorítimos possível para facilitar a vida as implementações e a interoperabilidade.
+  * Documento único com todas as regras. (carimbos de tempo, ACs, interação com hardware, interface de usuário e convenções de nomenclatura)
+  * Qualquer um pode emitir comprovantes de atributo (uma ideia similar aos certificados de atributo). Isso facilita a adição do cargo da pessoas nas assinaturas e facilita a emissão de procurações.
+  * APIs web padronizadas para autoridades de tempo e verificação de status dos certificados.
+  * Regras sobre como misturar assinaturas em papel e as digitais.
   * Regras sobre "digitalização autenticada".

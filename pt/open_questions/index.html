@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.47.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Questões em Aberto &middot; JUDSYS</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://judsys.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="JUDSYS" />
+
+  
+</head>
+
+  <body class="theme-base-0d ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/pt/"><h1>JUDSYS</h1></a>
+      <p class="lead">
+      Um padrão de assiantura digital para pessoas comuns.
+      </p>
+    </div>
+    
+    <ul class="sidebar-nav">
+      <li><a href="/pt/">Início</a> </li>
+      <li><a href="/pt/open_questions"> Questões em Aberto </a></li><li><a href="/pt/spec"> Especificação </a></li>
+    </ul>
+
+    <ul class="sidebar-nav">
+  
+  <li><a href="https://judsys.github.io/en/open_questions/">🇬🇧 English</a></li>
+  
+  <li><a href="https://judsys.github.io/pt/open_questions/">🇧🇷 Português</a></li>
+  
+</ul>
+
+
+    <p>G. Queiroz &copy; 2018.</p>
+  </div>
+</div>
+
+    <div class="content container">
+    <div class="post">
+  <h1>Questões em Aberto</h1>
+  <span class="post-date">2018-09-09</span>
+  
+<aside>
+    <header>
+    <h2>Sumário</h2>
+    </header>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#seleção-de-algorítimos">Seleção de ALgorítimos</a></li>
+<li><a href="#geral">Geral</a>
+<ul>
+<li><a href="#certificados-sem-nome">Certificados sem Nome</a></li>
+<li><a href="#mudanças-acidentais">Mudanças Acidentais</a></li>
+<li><a href="#certificados-para-programas-de-computador">Certificados para Programas de Computador</a></li>
+<li><a href="#celulares-como-cartões-inteligentes">Celulares como Cartões Inteligentes</a></li>
+<li><a href="#conteúdo-dinâmico">Conteúdo Dinâmico</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    <hr/>
+</aside>
+
+  
+
+<p>Se você quiser ajudar ou comentar sobre esse projeto, <a href="https://github.com/JUDSYS/v1Spec/issues">abra um issue no GitHub</a> (apenas em inglês) ou use um dos seguintes: <a href="https://goo.gl/forms/0ZvcYGGLDq9EA22C3">formulário de contato em português</a> e <a href="https://goo.gl/forms/uijCieF4cWvsPTHX2">formulário de contato em inglês</a>.</p>
+
+<h2 id="seleção-de-algorítimos">Seleção de ALgorítimos</h2>
+
+<p>Apenas um algoritmo será selecionado para cada uma das seguintes categorias: resumo digital (hash), criptografia simétrica, criptografia assimétrica, assinatura e derivação de chaves.</p>
+
+<p>Essa restrição existe para facilitar as implementações do padrão.</p>
+
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Principais candidatos</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Resumo digital (hash)</td>
+<td><a href="https://en.wikipedia.org/wiki/SHA-3">SHA-3-512</a></td>
+</tr>
+
+<tr>
+<td>Criptografia simétrica</td>
+<td><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a></td>
+</tr>
+
+<tr>
+<td>Criptografia assimétrica</td>
+<td><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a></td>
+</tr>
+
+<tr>
+<td>Assinatura</td>
+<td><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>, <a href="https://en.wikipedia.org/wiki/ECDSA">ECDSA</a>, <a href="https://en.wikipedia.org/wiki/EdDSA#Ed25519">Ed25519</a></td>
+</tr>
+
+<tr>
+<td>Derivação de chave</td>
+<td><a href="https://en.wikipedia.org/wiki/Argon2">Argon2id</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="geral">Geral</h2>
+
+<h3 id="certificados-sem-nome">Certificados sem Nome</h3>
+
+<p>Certificados sem nome são certificados auto-assinados que não carregam atributos sobre o titular, nem mesmo o nome.</p>
+
+<p>Eles se destinam a permitir com que as pessoas comecem a usar o JUDSYS sem terem que pagar para uma AC (Autoridade Certificadora) emitir-lhes um certificado.</p>
+
+<p>A ausência do nome tem por intenção ajudar na segurança, já que muitas pessoas provavelmente ignorariam mensagens lhes dizendo que o certificado não foi emitido por uma AC. O lado negativo, entretanto, é que as pessoas seriam forçadas a manterem uma espécie de agenda de contatos para saber qual certificado pertence a quem.</p>
+
+<p>Essa agenda de contatos pode ser incorporada nos aplicativos e talvez até seja sincronizada com o Contatos Google ou um serviço similar.</p>
+
+<p>Há também o problema das revogações. Um certificado sem nome pode acabar sendo irrevogável.</p>
+
+<p>Embora eles possam lembra o PGP, eles não formam uma rede-de-confiança. Isso é intencional, já que as redes-de-confiança são difíceis de implementar e de explicar para os usuários.</p>
+
+<h3 id="mudanças-acidentais">Mudanças Acidentais</h3>
+
+<p>Suponha que Alice assine um documento e envie os arquivos do documento e da assinatura para o Bob. Quando ele os recebe, ele abre o documento e acidentalmente adiciona uma linha em branco ou faz alguma outra modificação minúscula. A assinatura então se torna inválida.</p>
+
+<p>Uma opção para resolver esse problema é usando mecanismos de correção como o <a href="https://en.wikipedia.org/wiki/Parchive">PAR2</a>. A ideia é informar o usuário que o documento foi alterado após a assinatura e perguntar se o ele quer corrigir o arquivo.</p>
+
+<p>O lado negativo é que os usuários terão que trabalhar com três arquivos separados: o documento original, a assinatura e o arquivo de correção de erros.</p>
+
+<h3 id="certificados-para-programas-de-computador">Certificados para Programas de Computador</h3>
+
+<p>Os programas de computador, quando agindo em nome de alguém, devem receber seus próprios certificados? Isso pode ajudar a segurança ao custo de tornar o JUDSYS-1 mais complicado.</p>
+
+<p>Quem deve emitir esses certificados? As ACs (Autoridades Certificadoras) podem ser uma escolha óbvia, mas isso adiciona custos aos usuários finais. A outra opção é usar uma combinação de certificados sem nome e comprovantes de atributo.</p>
+
+<h3 id="celulares-como-cartões-inteligentes">Celulares como Cartões Inteligentes</h3>
+
+<p>Os cartões inteligentes devem ser permitidos? Eles podem ajudar na segurança, mas geralmente é difícil de implementar suporte a coisas que usam equipamentos externos. No (um tanto comum) pior cenário, algumas implementações o suportarão e outras não, reduzindo portanto a interoperabilidade.</p>
+
+<p>Uma possível solução é substituir os cartões inteligentes com celulares. O usuário teria um app instalado em seu celular que é uma implementação completa do JUDSYS-1, mas cujas chaves ficam no armazenamento (um tanto) seguro que apenas esse app tem acesso.</p>
+
+<p>Para facilitar as coisas para o usuário, aplicativos de desktop e sites poderiam mostrar um QR Code com uma requisição de assinatura que informa o resumo digital (hash) e o tamanho do arquivo. O usuário então escanearia esse QR Code com seu app e confirmaria a assinatura com uma senha ou impressão digital (isso não é ideal, mas biometria pode ser mais segura que senhas burras tipo 0000).</p>
+
+<p>Esse sistema com QR Code leva a alguns problemas (e se o atacante der o hash errado?), mas eles não parecem muito piores que uma implementação maligna ou um atacante substituindo o documento a ser assinado logo antes e logo depois do usuário assiná-lo.</p>
+
+<h3 id="conteúdo-dinâmico">Conteúdo Dinâmico</h3>
+
+<p>As implementações devem ser obrigadas a informarem o usuário quando há conteúdo dinâmico? Quais formatos devem ser de verificação obrigatória?</p>
+
+<p>Veja a seção <a href="/specs/draft-judsys1-latest.html#rfc.section.9.2">9.2. Dynamic Content</a> da especificação do JUDSYS-1.</p>
+
+</div>
+
+
+    </div>
+
+    
+  </body>
+</html>

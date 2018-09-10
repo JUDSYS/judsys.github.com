@@ -6,10 +6,22 @@
     <description>Recent content in Página de Índice on JUDSYS</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 06 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://judsys.github.io/pt/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Questões em Aberto</title>
+      <link>https://judsys.github.io/pt/open_questions/</link>
+      <pubDate>Sun, 09 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://judsys.github.io/pt/open_questions/</guid>
+      <description>Se você quiser ajudar ou comentar sobre esse projeto, abra um issue no GitHub (apenas em inglês) ou use um dos seguintes: formulário de contato em português e formulário de contato em inglês.
+Seleção de ALgorítimos Apenas um algoritmo será selecionado para cada uma das seguintes categorias: resumo digital (hash), criptografia simétrica, criptografia assimétrica, assinatura e derivação de chaves.
+Essa restrição existe para facilitar as implementações do padrão.
+   Função Principais candidatos     Resumo digital (hash) SHA-3-512   Criptografia simétrica AES   Criptografia assimétrica RSA   Assinatura RSA, ECDSA, Ed25519   Derivação de chave Argon2id    Geral Certificados sem Nome Certificados sem nome são certificados auto-assinados que não carregam atributos sobre o titular, nem mesmo o nome.</description>
+    </item>
     
     <item>
       <title>Especificação</title>

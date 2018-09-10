@@ -1,6 +1,6 @@
 ---
 title: "Index Page"
-date: 2018-09-06
+date: 2018-09-09
 draft: false
 type: page
 toc: true
@@ -8,7 +8,11 @@ toc: true
 
 # Introduction
 
-JUDSYS is a project to develop a new digital signature standard and end user applications that is intended to be used on offices and businesses.
+JUDSYS-1 is a standard meant to replace CMS/CAdES, XML-DSIG/XAdES, PAdES (PDF) and other digital signature systems.
+
+The JUDSYS project aims to develop both the standard end user applications.
+
+This is mainly intended for Brazil, but it should be able to work for other countries with minimal or no changes.
 
 ## Design Principles
 
@@ -69,13 +73,14 @@ JUDSYS aims to provide a digital signature standard that address the first there
 
 # Some features and non-features (many are still just ideas)
 
-  * Only detached signatures. This is to make backups, interoperability and user life easier.
-  * Anyone can issue proofs of attribute (a similar idea to attribute certificates). This makes it easy for companies to change job titles that should appear on signatures made by its employees. This also makes it easier for people to allow other to act in their name.
-  * No complicated certification chain. Just multiple trees, each with a single root CA.
-  * Unified RESTful APIs for time-stamp authorities and checking the certificate status.
-  * JSON files to ease implementation and debugging.
   * Unicode support everywhere.
-  * Rules about UI to ensure users have an easy time switching from one implementation to another.
+  * Standardized file extensions.
+  * Only two signature types: regular and timestamped.
+  * Only detached signatures. This is to make backups, interoperability and user life easier.
+  * Simple and consistent JSON syntax with base64 to avoid canonicalization problems.
+  * Minimal number of allowed algorithms in order to make implementations and interoperability easier.
+  * Single document for all the rules. (timestamps, CA rules, hardware interaction, user interaction and naming conventions)
+  * Anyone can issue proofs of attribute (a similar idea to attribute certificates). This makes it easy for companies to change job titles that should appear on signatures made by its employees. This also makes it easier for people to allow other to act in their name.
+  * Standardized web APIs for time-stamp authorities and checking the certificate status.
   * Rules about how to mix paper and digital signatures.
   * Rules about "trusted scans".
-

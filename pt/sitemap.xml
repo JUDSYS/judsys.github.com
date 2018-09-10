@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://judsys.github.io/pt/</loc>
-    <lastmod>2018-09-06T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -14,6 +14,21 @@
                 rel="alternate"
                 hreflang="pt"
                 href="https://judsys.github.io/pt/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://judsys.github.io/pt/open_questions/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://judsys.github.io/en/open_questions/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://judsys.github.io/pt/open_questions/"
                 />
   </url>
   

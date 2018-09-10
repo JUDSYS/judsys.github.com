@@ -30,7 +30,7 @@ defaultContentLanguageInSubdir = true
     languageName = "🇧🇷 Português"
     weight = 2
   [[languages.pt.menu.main]]
-    url    = "/en/open_questions"
+    url    = "/pt/open_questions"
     name   = "Questões em Aberto"
     weight = 1
   [[languages.pt.menu.main]]
