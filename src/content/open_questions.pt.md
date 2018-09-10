@@ -9,7 +9,7 @@ toc: true
 
 Se você quiser ajudar ou comentar sobre esse projeto, [abra um issue no GitHub](https://github.com/JUDSYS/v1Spec/issues) (apenas em inglês) ou use um dos seguintes: [formulário de contato em português](https://goo.gl/forms/0ZvcYGGLDq9EA22C3) e [formulário de contato em inglês](https://goo.gl/forms/uijCieF4cWvsPTHX2).
 
-## Seleção de ALgorítimos
+## Seleção de Algorítimos
 
 Apenas um algoritmo será selecionado para cada uma das seguintes categorias: resumo digital (hash), criptografia simétrica, criptografia assimétrica, assinatura e derivação de chaves.
 
