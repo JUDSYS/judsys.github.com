@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark markdown processor for Go" -->
 <!DOCTYPE rfc SYSTEM 'rfc2629.dtd' []>
-<rfc ipr="trust200902" submissionType="independent" category="exp" xml:lang="en" consensus="no" docName="draft-judsys1-01">
+<rfc ipr="trust200902" submissionType="independent" category="exp" xml:lang="en" consensus="no" docName="draft-judsys1-02">
 <?rfc toc="yes"?><?rfc symrefs="yes"?><?rfc sortrefs="yes"?><?rfc compact="yes"?><?rfc subcompact="no"?><?rfc comments="no"?>
 <front>
 <title abbrev="JUDSYS1">JSON Unified Digital Signatures System Standard 1</title><author initials="G." surname="Queiroz" fullname="Gabriel Villela Noriega de Queiroz"><organization></organization><address><postal><street></street>
@@ -13,13 +13,13 @@
 <email>gabrieljvnq@gmail.com</email>
 <uri></uri>
 </address></author>
-<date year="2018" month="9" day="5"></date>
+<date year="2018" month="9" day="11"></date>
 <area>Internet</area><workgroup>No Formal Workgroup</workgroup><keyword>cryptography</keyword>
 <keyword>digital signature</keyword>
 <keyword>protocol</keyword>
 
 <abstract>
-<t>A simple digital signature standard designed to be used by regular people and to be of mandatory acceptance.</t>
+<t>A simple digital signature standard designed to be used by regular people and to be of mandatory acceptance and to replace PAdES, XAdES and CAdES.</t>
 </abstract>
 
 </front>
@@ -103,7 +103,7 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <c>Certificates (no private keys)</c>
 
 <c><spanx style="verb">.j1a</spanx></c>
-<c>Attribute certificates</c>
+<c>A single proof of attribute</c>
 
 <c><spanx style="verb">.j1k</spanx></c>
 <c>Certificates with the private keys</c>
@@ -116,6 +116,9 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 
 <c><spanx style="verb">.j1r</spanx></c>
 <c>Revocation information</c>
+
+<c><spanx style="verb">.j1d</spanx></c>
+<c>Reserved for a future <eref target="https://en.wikipedia.org/wiki/WYSIWYS">WYSIWYS</eref> format</c>
 
 </texttable></section>
 </section>
@@ -133,14 +136,15 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>Times MUST NOT include fractions of a second.</t>
 </section>
 
-<section anchor="country-codes" title="Country codes">
-<t>All countries or similar MUST be represented by the upper case two letter codes defined on ISO 3166-1. If a country or similar does not have such code, it MUST be full English name with spaces and proper capitalization. Ex: <spanx style="verb">Principality of Sealand</spanx> not <spanx style="verb">principality of sealand</spanx> nor <spanx style="verb">PrincipalityOf_Sealand</spanx>.</t>
-<t>International organizations MUST use their upper case English acronym if it has more than two letters. Ex: <spanx style="verb">ICAO</spanx> and <spanx style="verb">ICJ</spanx>. Otherwise the full English name with spaces and capitalization MUST be used. Ex: <spanx style="verb">League of Nations</spanx>.</t>
+<section anchor="country-like-codes" title="Country-like codes">
+<t>In this spec, country-like means any sovereign state, international organization or similar. For example, the United Nations, the European Union, the UK and the International Court of Justice are country-like but England and Wales are not.</t>
+<t>All countries-like MUST be represented by the upper case three letter codes defined on ISO 3166-1 alpha-3. If a country-like does not have such code, it MUST be full English name with spaces and proper capitalization. Ex: <spanx style="verb">Principality of Sealand</spanx> not <spanx style="verb">principality of sealand</spanx> nor <spanx style="verb">PrincipalityOf_Sealand</spanx>.</t>
+<t>International organizations MUST use their upper case English acronym and their full English name separated by a hyphen with spaces on both sides. Ex: <spanx style="verb">ICAO - International Civil Aviation Organization</spanx> and <spanx style="verb">ICJ - International Court of Justice</spanx>.</t>
 <t>Special cases are:</t>
 <t>
 <list style="numbers">
-<t><spanx style="verb">UN</spanx> for the United Nations (already on the ISO 3166-1).</t>
-<t><spanx style="verb">EU</spanx> for the European Union (already on the ISO 3166-1).</t>
+<t><spanx style="verb">UN</spanx> for the United Nations (already on the ISO 3166-1 alpha-2).</t>
+<t><spanx style="verb">EU</spanx> for the European Union (already on the ISO 3166-1 alpha-2).</t>
 <t><spanx style="verb">INT</spanx> for international things such as passports, names and date of birth.</t>
 <t><spanx style="verb">MERCOSU</spanx> for the Southern Common Market, Mercosur in Spanish and Mercosul in Portuguese.</t>
 <t><spanx style="verb">UNASU</spanx> for the Union of South American Nations, UNSAUR in Spanish and UNASUL in Portuguese.</t>
@@ -151,13 +155,25 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 </section>
 
 <section anchor="certificate-chains" title="Certificate chains">
-<t>All JUDSYS-1 files MUST include all the necessary certificates, attribute certificates and revocation files for verifying the file in question.</t>
-<t>An exception is made to the root CAs which MUST NOT be included in any JUDSYS-1 file, as they MUST be a part of the apps themselves, preferably in the app's source code.</t>
+<t>All JUDSYS-1 certification chains are simple trees with root CAs at the top.  Cross-signing or other complicated methods MUST NOT be used.</t>
+<t>All JUDSYS-1 files MUST include exactly all the necessary certificates, attribute certificates and revocation files for verifying the file in question.</t>
+<t>An exception is made to the root CAs which MUST NOT be included in any JUDSYS-1 file, as they MUST be a part of the apps themselves, preferably in the implementation source code.</t>
 </section>
 </section>
 
 <section anchor="certificates" title="Certificates">
-<t>✏️</t>
+<t>A certificate is a signed message in which the issuer certifies that the subject has those keys.</t>
+<t>A certificate is an object with the following keys:</t>
+<t>
+<list style="numbers">
+<t><spanx style="verb">subject</spanx>: An entity describing the subject.</t>
+<t><spanx style="verb">issuer</spanx>: The key id of the issue-certs key of the CA.</t>
+<t><spanx style="verb">notBefore</spanx>: The time in which the certificate starts being valid.</t>
+<t><spanx style="verb">notAfter</spanx>: The time in which the certificate expires.</t>
+<t><spanx style="verb">keys</spanx>: An array holding multiple public keys.</t>
+<t><spanx style="verb">public-faith</spanx>: An array of of strings indicating which types of signature the subject has &quot;public-faith&quot;. This is, what hey say is assumed to be e true.</t>
+</list>
+</t>
 
 <section anchor="keys" title="Keys">
 <t>All keys are encoded as a dictionaries, which MUST have the following keys:</t>
@@ -185,10 +201,16 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>
 <list style="numbers">
 <t>If the CA fails to verify that a phone number really belongs to the subject, it MUST never be included.</t>
-<t>If the subject of the certificate to be issued forgets to bring their US/SSN, this attribute MUST NOT be included in the certificate.</t>
+<t>If the subject of the certificate to be issued forgets to bring their USA/SSN, this attribute MUST NOT be included in the certificate.</t>
 </list>
 </t>
-<t>A CA MAY refuse to issue a certificate if essential properties could not verified. Examples: INT/name, US/SSN, BR/RG, BR/CPF.</t>
+<t>A CA MAY refuse to issue a certificate if essential properties could not verified. Examples: INT/name, USA/SSN, BRA/RG, BRA/CPF.</t>
+
+<section anchor="id" title="id">
+<t>A string pointing to an attribute which no other entity shares that value. Examples: <spanx style="verb">BRA/CPF</spanx>, <spanx style="verb">USA/SSN</spanx>, <spanx style="verb">INT/passports:number</spanx>.</t>
+<t>This is, two entities are the same when their respective ids (attribute name and value) match. The reverse is not guaranteed.</t>
+<t>The syntax is <spanx style="verb">&lt;key&gt;</spanx> or <spanx style="verb">&lt;key&gt;:&lt;sub-key&gt;</spanx>. If there is an array, the first value is always used as if it were the only one.</t>
+</section>
 
 <section anchor="int-type" title="INT/type">
 <t>An enum describing the type of the subject. Possible values are: <spanx style="verb">natural person</spanx>, <spanx style="verb">legal person</spanx>, and <spanx style="verb">other</spanx> (ex: software).</t>
@@ -196,9 +218,9 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 
 <section anchor="int-names" title="INT/names">
 <t>Each name is a one line Unicode string.</t>
-<t>All name entries each MUST be at most 5 KiB long.</t>
+<t>Each name entry SHOULD be at most 5 KiB long.</t>
 <t>All apps MUST support such long names. They MAY, however, show only the beginning of the name by default and have a simple way to show the full name. Example: a tooltip or a button close to the name.</t>
-<t>There MUST be at least one name in the <spanx style="verb">INT/name</spanx> attribute.</t>
+<t>There MUST be at least one name in the <spanx style="verb">INT/names</spanx> attribute.</t>
 <t>Any prefixes, suffixes, infixes, honorifics and similar things attached to the name MUST be verified. Example: a person may never use the prefix &quot;Dr.&quot; if they have no valid doctorates degree.</t>
 <t>Generic prefixes like &quot;Mr.&quot; or &quot;Ms.&quot; and job titles MUST NOT be included in any of the names.</t>
 <t>For legal persons, it is RECOMMENDED to follow the convention: <spanx style="verb">(&lt;Acronym&gt;) &lt;Full Legal Name&gt; &lt;Any special endings&gt;</spanx> Examples:</t>
@@ -222,12 +244,26 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <section anchor="int-parents" title="INT/parents">
 <t>An array of entities. The order MUST NOT be assigned any meaning. The array MAY have any number of elements.</t>
 <t>The <spanx style="verb">INT/parents</spanx> attribute MAY lead to a recursive behaviour. This attribute SHOULD NOT exceed the grandparents generations.</t>
-<t>Example 1:</t>
+<t>Example:</t>
 
 <figure><artwork type="js">[
-  {&quot;id&quot;: &quot;BR/CPF&quot;, &quot;INT/names&quot;: [&quot;João da Silva&quot;], &quot;BR/CPF&quot;: &quot;123.456.789-00&quot;},
-  {&quot;id&quot;: &quot;BR/CPF&quot;, &quot;INT/names&quot;: [&quot;Maria da Silva&quot;], &quot;BR/CPF&quot;: &quot;987.654.321-00&quot;},
-  {&quot;id&quot;: &quot;BR/CPF&quot;, &quot;INT/names&quot;: [&quot;Joaquim Freitas&quot;], &quot;BR/CPF&quot;: &quot;987.654.321-00&quot;}
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;João da Silva&quot;], &quot;BRA/CPF&quot;: &quot;123.456.789-00&quot;},
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;Maria da Silva&quot;], &quot;BRA/CPF&quot;: &quot;987.654.321-00&quot;},
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;Joaquim Freitas&quot;], &quot;BRA/CPF&quot;: &quot;987.654.321-00&quot;}
+]
+</artwork></figure>
+</section>
+
+<section anchor="int-guardians" title="INT/guardians">
+<t>Pretty much the same as the <spanx style="verb">INT/parents</spanx> attribute.</t>
+<t>It it is present, the entities <spanx style="verb">INT/parents</spanx> MUST NOT be considered as legal guardians.</t>
+<t>It is absent, the entities <spanx style="verb">INT/parents</spanx> MAY be assumed to be legal guardians.</t>
+<t>Example:</t>
+
+<figure><artwork type="js">[
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;João da Silva&quot;], &quot;BRA/CPF&quot;: &quot;123.456.789-00&quot;},
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;Maria da Silva&quot;], &quot;BRA/CPF&quot;: &quot;987.654.321-00&quot;},
+  {&quot;id&quot;: &quot;BRA/CPF&quot;, &quot;INT/names&quot;: [&quot;Joaquim Freitas&quot;], &quot;BRA/CPF&quot;: &quot;987.654.321-00&quot;}
 ]
 </artwork></figure>
 </section>
@@ -236,7 +272,7 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>An array of the subject's email addresses.</t>
 <t>The fist entry is considered the main one.</t>
 <t>The subject MAY have no email address.</t>
-<t>It is <spanx style="strong">RECOMENDED</spanx> to have at least one ASCII email address.</t>
+<t>It is RECOMMENDED to have at least one ASCII-only email address.</t>
 <t>Examples:</t>
 
 <figure><artwork type="js">// Okay:
@@ -272,12 +308,12 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 </section>
 
 <section anchor="int-pictures" title="INT/pictures">
-<t>For privacy reasons the subject SHOULD have the right to refuse the inclusion of <spanx style="verb">INT/picture</spanx> attribute. The CA, however, CAN require this attribute but its is encouraged not to require it.</t>
+<t>For privacy reasons the subject SHOULD have the right to refuse the inclusion of <spanx style="verb">INT/pictures</spanx> attribute. The CA, however, CAN require this attribute but its is encouraged not to require it.</t>
 <t>The picture MUST always be static: no animated GIFs or similar.</t>
 <t>For natural persons the image MUST be picture of the subject. The specific are left to the CA, but it SHOULD follow the traditions and conventions of the CA's country.</t>
-<t>One suggestion for CAs is to follow the ICAO guidlines on photos for passports (see <xref target="ICAO-9303"></xref>).</t>
+<t>One suggestion for CAs is to follow the ICAO guidelines on photos for passports (see <xref target="ICAO-9303"></xref>).</t>
 <t>For legal persons the image MUST be a logo or other symbol that represents the subject. It MUST NOT be a picture of the owners or of the place where the subject is. Again, specific are left to the CA.</t>
-<t>Support for this property in apps is OPTIONAL but <spanx style="strong">RECOMENDED</spanx> to those that have a GUI.</t>
+<t>Support for this property in apps is OPTIONAL but RECOMMENDED to those that have a GUI.</t>
 <t>Those that decide to implement this property MUST be able do decode both JPEG and PNG.</t>
 <t>The picture MUST be data URL encoded using base64 and MUST NOT exceed 1 MiB. The size restriction applies to the image itself, not to the string that encodes it.</t>
 <t>The picture MUST NOT be rotated using metadata (see <xref target="JPEG-HOFF"></xref>) regardless of the file type (JPGE or PNG or other).</t>
@@ -340,8 +376,8 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <section anchor="nameless-certificates" title="Nameless Certificates">
 <t>👉 Open Question: It is feature a good idea?</t>
 <t>Nameless certificates are self signed certificates meant for the end user. They are intended to serve as a way for people to start using and testing JUDSYS-1 without the need to pay the CAs.</t>
-<t>All nameless certificates MUST have, on both <spanx style="verb">subject</spanx> and <spanx style="verb">issuer</spanx>, the <spanx style="verb">INT/name</spanx> attribute with a single element <spanx style="verb">Nameless Certificate</spanx>. There MUST NOT be any other names.</t>
-<t>The choice to prohibit names is intentional, as it ensures that no app will be able to display an unverified name, thus forcing the user to keep an &quot;address book&quot; to associate each person to their certificate.</t>
+<t>All nameless certificates MUST have, on both <spanx style="verb">subject</spanx> and <spanx style="verb">issuer</spanx>, the <spanx style="verb">INT/name</spanx> attribute with a single element <spanx style="verb">Nameless Certificate</spanx>. There MUST NOT be any other names nor any other attributes.</t>
+<t>The choice to prohibit names is intentional, as it ensures that no implementation will be able to display an unverified name, thus forcing the user to keep an &quot;address book&quot; to associate each person to their certificate.</t>
 </section>
 
 <section anchor="revocation" title="Revocation">
@@ -349,6 +385,8 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 </section>
 
 <section anchor="proof-of-attribute" title="Proof of attribute">
+<t>A PA, Proof of Attribute, is a short signed message that adds an attribute to the holder under the authority of the issuer.</t>
+<t>Any one may issue a proof of attribute. The implementation MUST NOT attempt to verify of the issuer has &quot;public faith&quot; (i.e. what they say is assumed to be true by law). This task MUST be left to the user.</t>
 
 <section anchor="standard-attributes" title="Standard attributes">
 
@@ -387,15 +425,18 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 
 <section anchor="standard-attributes-1" title="Standard attributes">
 <t>All signature attributes MUST NOT be arrays.</t>
-<t>The <spanx style="verb">INT/date</spanx> and <spanx style="verb">INT/reason</spanx> attributes are MANDATORY. All others are OPTIONAL, but each country MAY require certain attributes.</t>
+<t>The <spanx style="verb">date</spanx>, <spanx style="verb">reason</spanx> and <spanx style="verb">implementation</spanx> attributes are REQUIRED. All others are OPTIONAL, but each country MAY require certain attributes.</t>
+<t>Exactly one of the following MUST be present: <spanx style="verb">file</spanx> and <spanx style="verb">counter-signs</spanx>.</t>
+<t>All implementations MUST counter sign instead of sign in parallel whenever possible.</t>
 
-<section anchor="int-reason" title="INT/reason">
+<section anchor="reason" title="reason">
 <t>A dictionary that indicates why the signer is signing this document. Possible keys:</t>
 <t>
 <list style="numbers">
+<t><spanx style="verb">as-document</spanx>: The signer role is set on the document itself and is not any sort of meta-role such as the ones below. This is the most common type of signature.</t>
 <t><spanx style="verb">sent</spanx>: The signer sent the document.</t>
 <t><spanx style="verb">created</spanx>: The signer created the document.</t>
-<t><spanx style="verb">approved</spanx>: The signer approved or accepted the document (this is the most common type signature).</t>
+<t><spanx style="verb">approved</spanx>: The signer approved the document.</t>
 <t><spanx style="verb">rejected</spanx>: The signer rejected the document.</t>
 <t><spanx style="verb">delivered</spanx>: The signer placed the document where the recipient is expected to look regularly. Example: A server placed an email on the recipient's account.</t>
 <t><spanx style="verb">received</spanx>: The signer received the document. Example: a person counter-signs with this key to confirm they received an email.</t>
@@ -409,7 +450,7 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>Both the <spanx style="verb">approved</spanx> and <spanx style="verb">rejected</spanx> keys MAY be true at the same time. When this happens, it means that the signer approved a part of the document and rejected another. The user MUST be informed when this happens.</t>
 </section>
 
-<section anchor="int-location" title="INT/location">
+<section anchor="location" title="location">
 <t>A dictionary with the following keys:</t>
 <t>
 <list style="numbers">
@@ -429,26 +470,34 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t><spanx style="verb">lat</spanx> and <spanx style="verb">lon</spanx> are mainly intended to automatically show markers on maps for the end user.</t>
 </section>
 
-<section anchor="int-date" title="INT/date">
+<section anchor="date" title="date">
 <t>A string with the time in which the signer claims to have signed the document.</t>
 <t>All apps MUST warn the user that this value is just a claim which may be false.</t>
 </section>
 
-<section anchor="int-file" title="INT/file">
+<section anchor="file" title="file">
 <t>An object containing information about the file being signed.</t>
 
 <figure><artwork type="js">{
     &quot;filename&quot;: &quot;contract.txt&quot;,
     &quot;size&quot;: 9007199254740991, // in bytes, 8 PiB in this case
-    &quot;hash&quot;: &quot;SHA-3-512=A69F73CCA23A9AC5C8B567DC185A756E97C982164FE25859E0D1DCC1475C80A615B2123AF1F5F94C11E3E9402C3AC558F500199D95B6D3E301758586281DCD26&quot;
+    &quot;had-file&quot;: false, // in this case the hash was NOT computed by the app that signed the message
+    &quot;hash&quot;: {
+      &quot;algorithm&quot;: &quot;SHA-512&quot;,
+      &quot;value&quot;: &quot;A69F73CCA23A9AC5C8B567DC185A756E97C982164FE25859E0D1DCC1475C80A615B2123AF1F5F94C11E3E9402C3AC558F500199D95B6D3E301758586281DCD26&quot;
+    }
 }
 </artwork></figure>
 <t>A signature verification MUST NOT fail because the file was renamed.</t>
 </section>
 
-<section anchor="int-counter" title="INT/counter">
-<t>An array of base64 string encoding the previous signatures.</t>
-<t>A signature verification MUST NOT fail because the file was renamed.</t>
+<section anchor="counter-signs" title="counter-signs">
+<t>An array of base64 string encoding the previous signatures which the signer is countersigning.</t>
+</section>
+
+<section anchor="implementation" title="implementation">
+<t>A string with the name and the version of the software used to generate the  signature. Both the name and the version MUST be included. Ex: <spanx style="verb">goJUDSYS 1.3.14</spanx></t>
+<t>In the case of application that use software libraries, both MUST be included. Ex: <spanx style="verb">MyApp 0.3.4; goJUDSYS 1.3.4</spanx>.</t>
 </section>
 </section>
 
@@ -461,12 +510,27 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <section anchor="online-restful" title="Online RESTful">
 
 <section anchor="sign-certificate" title="Sign certificate">
+<t>Method: <spanx style="verb">POST</spanx>
+Content-Type: <spanx style="verb">multipart/form-data</spanx></t>
+<t>URL: <spanx style="verb">&lt;base url&gt;/issue-cert/&lt;long authorization token&gt;</spanx></t>
+<t>Form: an <eref target="#unsigned-certificate">unsigned certificate</eref> on name <spanx style="verb">unsigned-certificate</spanx></t>
+<t>Response: a <eref target="#signed-certificate">signed certificate</eref>.</t>
 </section>
 
 <section anchor="certificate-revocation-status" title="Certificate revocation status">
+<t>Method: <spanx style="verb">GET</spanx></t>
+<t>URL: <spanx style="verb">&lt;base url&gt;/status/&lt;any key id&gt;</spanx></t>
+<t>Response (main part):</t>
+
+<figure><artwork type="js">{
+  &quot;key-id&quot;: &quot;&lt;key-id&gt;&quot;,
+  &quot;revoked&quot;: true,
+  &quot;datetime&quot;: &quot;2000-01-01T00:00:00&quot;
+}
+</artwork></figure>
 </section>
 
-<section anchor="timestamp-servers" title="Timestamp servers">
+<section anchor="time-stamps-authorities" title="Time-stamps Authorities">
 </section>
 </section>
 
@@ -474,48 +538,57 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 </section>
 </section>
 
-<section anchor="smartcards" title="Smartcards">
+<section anchor="smart-cards-smart-phones" title="Smart-cards/Smart-phones">
 </section>
 
 <section anchor="security-and-usability-considerations" title="Security and Usability Considerations">
-<t>✏️</t>
+<t>👉</t>
+
+<section anchor="graphical-representation" title="Graphical representation">
+<t>Implementations MUST NOT show any representation of the signatures within the document. Ex: a scanned signature on a corner of a page is forbidden, but showing the signatures in a side panel is allowed.</t>
+</section>
 
 <section anchor="mixing-digital-and-paper-signatures" title="Mixing digital and paper signatures">
+<t>The implementations MUST NOT encourage the user to print a digital document which already has signatures and add regular signatures to the printed version.</t>
+<t>Rather, all paper signatures MUST be done first, then the document SHOULD be scanned by a notary or equivalent and then digital signatures may be added to the resulting file.</t>
 </section>
 
 <section anchor="dynamic-content" title="Dynamic Content">
 <t>All signing apps MUST warn the user when the document they are trying to sign seems to have dynamic content.</t>
-<t>All signing apps MUST also not show the warning to the user if they have checked and failed to find signs of dynamic content on the file being signed.</t>
+<t>All signing apps MUST NOT show the warning to the user if they have checked and failed to find signs of dynamic content on the file being signed.</t>
 <t>If a signing app cannot verify the file for dynamic content and it is not on the white list, it MUST warn the user about the possibility of dynamic content.</t>
-<t>For PDF, the verification MUST check for, and fail to find all of the following:</t>
+<t>For PDF, the verification, if implemented, MUST check for, and fail to find all of the following:</t>
 <t>
 <list style="numbers">
 <t>Any signs of JavaScript.</t>
+<t>(👉 what else?)</t>
 </list>
 </t>
-<t>For HTML, the verification MUST check for, and fail to find all of the following:</t>
+<t>For HTML, the verification, if implemented, MUST check for, and fail to find all of the following:</t>
 <t>
 <list style="numbers">
 <t>The <spanx style="verb">&lt;script&gt;</spanx> tag.</t>
 <t>Properties such as <spanx style="verb">onclick</spanx> and <spanx style="verb">oninput</spanx> on any tags.</t>
 <t>External URLs for the tags <spanx style="verb">&lt;link&gt;</spanx> and <spanx style="verb">&lt;style&gt;</spanx>. Note that links, <spanx style="verb">&lt;a&gt;</spanx> tag, are fine regardless of the URL they point to and the <spanx style="verb">&lt;script&gt;</spanx> tag will fail the verification independently of the URL.</t>
+<t>(👉 anything else?)</t>
 </list>
 </t>
-<t>For Office Open XML (MOX), Open Document Format for Office Applications (ODF) and older Microsoft Office files, the verification MUST check for, and fail to find all of the following:</t>
+<t>Given the complexity some document formats, all implementations MUST warn the user that the document may contain dynamic content for the following formats:</t>
 <t>
 <list style="numbers">
-<t>OLE content.</t>
-<t>(✏️ what else?)</t>
+<t>Office Open XML (MOX) and older Microsoft Office files (<spanx style="verb">.doc</spanx> ,<spanx style="verb">.dot</spanx> ,<spanx style="verb">.wbk</spanx> ,<spanx style="verb">.docx</spanx> ,<spanx style="verb">.docm</spanx> ,<spanx style="verb">.dotx</spanx> ,<spanx style="verb">.dotm</spanx> ,<spanx style="verb">.docb</spanx> ,<spanx style="verb">.xls</spanx> ,<spanx style="verb">.xlt</spanx> ,<spanx style="verb">.xlm</spanx> ,<spanx style="verb">.xlsx</spanx> ,<spanx style="verb">.xlsm</spanx> ,<spanx style="verb">.xltx</spanx> ,<spanx style="verb">.xltm</spanx> ,<spanx style="verb">.xlsb</spanx> ,<spanx style="verb">.xla</spanx> ,<spanx style="verb">.xlam</spanx> ,<spanx style="verb">.xll</spanx> ,<spanx style="verb">.xlw</spanx> ,<spanx style="verb">.ppt</spanx> ,<spanx style="verb">.pot</spanx> ,<spanx style="verb">.pps</spanx> ,<spanx style="verb">.pptx</spanx> ,<spanx style="verb">.pptm</spanx> ,<spanx style="verb">.potx</spanx> ,<spanx style="verb">.potm</spanx> ,<spanx style="verb">.ppam</spanx> ,<spanx style="verb">.ppsx</spanx> ,<spanx style="verb">.ppsm</spanx> ,<spanx style="verb">.sldx</spanx> ,<spanx style="verb">.sldm</spanx> ,<spanx style="verb">.pub</spanx> ,<spanx style="verb">.adn</spanx> ,<spanx style="verb">.accdb</spanx> ,<spanx style="verb">.accdr</spanx> ,<spanx style="verb">.accdt</spanx> ,<spanx style="verb">.accda</spanx> ,<spanx style="verb">.mdw</spanx> ,<spanx style="verb">.accde</spanx> ,<spanx style="verb">.mam</spanx> ,<spanx style="verb">.maq</spanx> ,<spanx style="verb">.mar</spanx> ,<spanx style="verb">.mat</spanx> ,<spanx style="verb">.maf</spanx> ,<spanx style="verb">.laccdb</spanx> ,<spanx style="verb">.ade</spanx> ,<spanx style="verb">.adp</spanx> ,<spanx style="verb">.mdb</spanx> ,<spanx style="verb">.cdb</spanx> ,<spanx style="verb">.mda</spanx> ,<spanx style="verb">.mdn</spanx> ,<spanx style="verb">.mdt</spanx> ,<spanx style="verb">.mdf</spanx> ,<spanx style="verb">.mde</spanx> ,<spanx style="verb">.ldb</spanx>)</t>
+<t>Open Document Format for Office Applications (ODF) (<spanx style="verb">.odt</spanx>, <spanx style="verb">.fodt</spanx>, <spanx style="verb">.ods</spanx>, <spanx style="verb">.fods</spanx>, <spanx style="verb">.odp</spanx>, <spanx style="verb">.fodp</spanx>, <spanx style="verb">.odg</spanx>, <spanx style="verb">.fodg</spanx>, <spanx style="verb">.odf</spanx>).</t>
+<t>Adobe Flash files (<spanx style="verb">.flv</spanx>).</t>
+<t>Executable files (<spanx style="verb">.sh</spanx>, <spanx style="verb">.cmd</spanx>, <spanx style="verb">.bat</spanx>, <spanx style="verb">.exe</spanx>, <spanx style="verb">.dll</spanx>, <spanx style="verb">.so</spanx>, <spanx style="verb">.o</spanx>, <spanx style="verb">.a</spanx>, <spanx style="verb">.dylib</spanx>).</t>
 </list>
 </t>
-<t>All signing apps CAN assume that the following file formats have no dynamic content:</t>
+<t>All signing apps MAY assume that the following file formats have no dynamic content:</t>
 <t>
 <list style="numbers">
-<t>Image files, including JPEG (<spanx style="verb">.jpg</spanx> and <spanx style="verb">.jpeg</spanx>), PNG (<spanx style="verb">.png</spanx>), GIF (<spanx style="verb">.gif</spanx>), BMP (<spanx style="verb">.bmp</spanx>) and TIFF (<spanx style="verb">.tiff</spanx> and <spanx style="verb">.tif</spanx>).</t>
-<t>Text files, including pure text (<spanx style="verb">.txt</spanx>) and rich text (<spanx style="verb">.rtf</spanx>).</t>
-<t>Markdown files (<spanx style="verb">.md</spanx>).</t>
-<t>TeX files (<spanx style="verb">.tex</spanx>).</t>
-<t>XML files (<spanx style="verb">.xml</spanx>).</t>
+<t>Image files, including JPEG (<spanx style="verb">.jpg</spanx> and <spanx style="verb">.jpeg</spanx>), PNG (<spanx style="verb">.png</spanx>), GIF (<spanx style="verb">.gif</spanx>), BMP (<spanx style="verb">.bmp</spanx>), WebP (<spanx style="verb">.webp</spanx>) and TIFF (<spanx style="verb">.tiff</spanx> and <spanx style="verb">.tif</spanx>).</t>
+<t>Text files, including pure text (<spanx style="verb">.txt</spanx>), rich text (<spanx style="verb">.rtf</spanx>), reStructured Text (<spanx style="verb">.rst</spanx>), Markdown (<spanx style="verb">.md</spanx>) and TeX files (<spanx style="verb">.tex</spanx>).</t>
+<t>Audio files, including <spanx style="verb">.mp3</spanx>, <spanx style="verb">.ogg</spanx>, <spanx style="verb">.wav</spanx>, <spanx style="verb">.3pg</spanx>, <spanx style="verb">.aac</spanx>, <spanx style="verb">.aiff</spanx>, <spanx style="verb">.m4a</spanx>.</t>
+<t>Video files, including <spanx style="verb">.avi</spanx>, <spanx style="verb">.mp4</spanx>, <spanx style="verb">.ogv</spanx>, <spanx style="verb">.mpeg</spanx>, <spanx style="verb">.webm</spanx> and <spanx style="verb">.mov</spanx>.</t>
 </list>
 </t>
 <t>All signing apps MUST check extension in a case insensitive manner.</t>
@@ -536,6 +609,7 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 </section>
 
 <section anchor="cloud-usage" title="Cloud usage">
+<t>The private keys MUST remain within the users control at all times. Cloud implementations MUST NOT have the users key on their servers, not even encrypted.</t>
 </section>
 
 <section anchor="side-channel-attacks" title="Side channel attacks">
@@ -565,26 +639,29 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <ttcol>Portuguese</ttcol>
 
 
-<c>(PA) Proof of certificate</c>
-<c>(CA) Comprovante de Atributo</c>
-
 <c>Certificate</c>
 <c>Certificado</c>
 
 <c>(CA) Certificate Authority</c>
 <c>(AC) Autoridade Certificadora</c>
 
-<c>(PKI) Public Key Infrastructure</c>
-<c>(ICP) Infraestrutura de Chaves Públicas</c>
+<c>(PA) Proof of certificate</c>
+<c>(CA) Comprovante de Atributo</c>
 
 <c>(TA) Timestamping Authority</c>
 <c>(ACT) Autoridade de Carimbo de Tempo</c>
+
+<c>(PKI) Public Key Infrastructure</c>
+<c>(ICP) Infraestrutura de Chaves Públicas</c>
 
 <c>Subject</c>
 <c>Titular</c>
 
 <c>Issuer</c>
 <c>Emissor</c>
+
+<c>Hash</c>
+<c>Resumo digital (hash)</c>
 
 </texttable></section>
 </section>
@@ -596,8 +673,8 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>All certificates issued for natural persons MUST have the following attributes:</t>
 <t>
 <list style="numbers">
-<t><spanx style="verb">BR/CPF</spanx></t>
-<t><spanx style="verb">BR/RG</spanx> or <spanx style="verb">BR/RNE</spanx> or <spanx style="verb">INT/passport</spanx>: The certificate MAY have any combination of them so long as there is at least one.</t>
+<t><spanx style="verb">BRA/CPF</spanx></t>
+<t><spanx style="verb">BRA/RG</spanx> or <spanx style="verb">BRA/RNE</spanx> or <spanx style="verb">INT/passports</spanx>: The certificate MAY have any combination of them so long as there is at least one.</t>
 </list>
 </t>
 <t>For legal persons, the <spanx style="verb">INT/name</spanx> attribute MUST be the full &quot;razão social&quot;.</t>
@@ -605,56 +682,56 @@ document, are to be interpreted as described in <xref target="RFC2119"></xref>.<
 <t>All certificates issued for legal persons MUST have the following attributes:</t>
 <t>
 <list style="numbers">
-<t><spanx style="verb">BR/CNPJ</spanx></t>
+<t><spanx style="verb">BRA/CNPJ</spanx></t>
 </list>
 </t>
 <t>For legal persons, they SHOULD also have, when possible:</t>
 <t>
 <list style="numbers">
-<t><spanx style="verb">BR/IE</spanx> (inscrição estadual)</t>
-<t><spanx style="verb">BR/IM</spanx> (inscrição municipal)</t>
-<t><spanx style="verb">BR/NIRE</spanx> (junta comercial)</t>
+<t><spanx style="verb">BRA/IE</spanx> (inscrição estadual)</t>
+<t><spanx style="verb">BRA/IM</spanx> (inscrição municipal)</t>
+<t><spanx style="verb">BRA/NIRE</spanx> (junta comercial)</t>
 </list>
 </t>
 </section>
 
 <section anchor="subject-attributes-1" title="Subject Attributes">
 
-<section anchor="br-cpf" title="BR/CPF">
+<section anchor="bra-cpf" title="BRA/CPF">
 <t>CPF (<spanx style="emph">Cadastro de Pessoas Físicas</spanx>) number. This MUST be encoded as a trimmed string with the format: <spanx style="verb">999.999.999/99</spanx>.</t>
-<t><spanx style="verb">BR/CPF</spanx> MUST NOT be encoded as an array.</t>
+<t><spanx style="verb">BRA/CPF</spanx> MUST NOT be encoded as an array.</t>
 <t>Example: <spanx style="verb">001.456.789/00</spanx></t>
-<t>All apps MUST NOT reject a BR/CPF entry because the verification digits (the last two) are incorrect.</t>
+<t>All apps MUST NOT reject a BRA/CPF entry because the verification digits (the last two) are incorrect.</t>
 </section>
 
-<section anchor="br-cnpj" title="BR/CNPJ">
+<section anchor="bra-cnpj" title="BRA/CNPJ">
 <t>CNPJ (<spanx style="emph">Cadastro Nacional de Pessoas Jurídicas</spanx>) number. This MUST be encoded as a trimmed string with the format: <spanx style="verb">99.999.999/9999-99</spanx>.</t>
-<t><spanx style="verb">BR/CNPJ</spanx> MUST NOT be encoded as an array.</t>
+<t><spanx style="verb">BRA/CNPJ</spanx> MUST NOT be encoded as an array.</t>
 <t>Example: <spanx style="verb">01.012.123/0001-99</spanx></t>
-<t>All apps MUST NOT reject a <spanx style="verb">BR/CNPJ</spanx> entry because the verification digits (the last two) are incorrect.</t>
+<t>All apps MUST NOT reject a <spanx style="verb">BRA/CNPJ</spanx> entry because the verification digits (the last two) are incorrect.</t>
 </section>
 
-<section anchor="br-rne" title="BR/RNE">
+<section anchor="bra-rne" title="BRA/RNE">
 <t>RNE (<spanx style="emph">Registro Nacional de Estrangeiros</spanx>) MUST be encoded as a string with all punctuation.</t>
-<t>Example: ✏️</t>
+<t>Example: 👉</t>
 </section>
 
-<section anchor="br-rg" title="BR/RG">
-<t>RG (<spanx style="emph">Registro Geral</spanx>) MUST be encoded as an array of dictionaries with the keys:</t>
+<section anchor="bra-rgs" title="BRA/RGs">
+<t>Each RG (<spanx style="emph">Registro Geral</spanx>) MUST be encoded as a dictionaries with the keys:</t>
 <t>
 <list style="numbers">
 <t><spanx style="verb">number</spanx> for the RG number which MUST include punctuation.</t>
 <t><spanx style="verb">digit</spanx> for the verification digit, i.e. the character after the hyphen. If the subject RG has no digit this string MUST be empty.</t>
 <t><spanx style="verb">state</spanx> the two letter uppercase code for the federative unit that issued the document.</t>
 <t><spanx style="verb">issuer</spanx> the institution that actually issued the RG.</t>
-<t><spanx style="verb">short_form</spanx> a concise string expressing the main things about the RG. The following algorithm MUST be used:</t>
+<t><spanx style="verb">short_form</spanx> a concise string expressing the main things about the RG. This MUST be present and MUST be computed by the CA using the following algorithm:</t>
 </list>
 </t>
 
 <figure><artwork type="pseudo">IF digit IS present THEN
-    short_form = number + &quot;-&quot; + digit + &quot; /&quot; + state
+    short_form = number + &quot;-&quot; + digit + &quot; &quot; + state
 ELSE
-    short_form = number + &quot; /&quot; + state
+    short_form = number + &quot; &quot; + state
 END IF
 </artwork></figure>
 <t>Example of an RG:</t>
@@ -675,10 +752,10 @@ END IF
 </artwork></figure>
 </section>
 
-<section anchor="br-título-de-eleitor" title="BR/Título de Eleitor">
+<section anchor="bra-título-de-eleitor" title="BRA/Título de Eleitor">
 </section>
 
-<section anchor="br-nit" title="BR/NIT">
+<section anchor="bra-nit" title="BRA/NIT">
 </section>
 </section>
 </section>
@@ -700,7 +777,7 @@ END IF
     &quot;certificates&quot;: {
       &quot;type&quot;: &quot;array&quot;,
       &quot;items&quot;: {
-        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-object.json&quot;
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-certificate.json&quot;
       }
     }
   }
@@ -723,7 +800,7 @@ END IF
     &quot;certificates&quot;: {
       &quot;type&quot;: &quot;array&quot;,
       &quot;items&quot;: {
-        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-object.json&quot;
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-certificate.json&quot;
       }
     },
     &quot;private-keys&quot;: {
@@ -739,6 +816,117 @@ END IF
 </section>
 
 <section anchor="detached-digital-signature-file-j1s" title="Detached Digital Signature File (.j1s)">
+
+<figure><artwork type="json">{
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/j1s.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 .j1s file&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;what&quot;, &quot;certificates&quot;, &quot;signatures&quot;],
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;what&quot;: {
+      &quot;const&quot;: &quot;JUDSYS-1 Signature File (.j1s)&quot;
+    },
+    &quot;certificates&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-certificate.json&quot;
+      },
+      &quot;description&quot;: &quot;This MUST have exactly the necessary certificates to verify the signature file&quot;
+    },
+    &quot;attributes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-proof-of-attribute.json&quot;
+      }
+    },
+    &quot;signatures&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-document-signature.json&quot;
+      }
+    }
+  }
+}
+</artwork></figure>
+</section>
+
+<section anchor="document-signature" title="Document Signature">
+
+<section anchor="unsigned-document-signature" title="Unsigned Document Signature">
+
+<figure><artwork type="json">{
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/unsigned-document-signature.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 Unsigned Signature&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;signer-key&quot;, &quot;date&quot;, &quot;reason&quot;, &quot;implementation&quot;],
+  &quot;additionalProperties&quot;: true,
+  &quot;properties&quot;: {
+    &quot;signer-key&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;The key ID of the signing key of the signer&quot;
+    },
+    &quot;implementation&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;The names and versions of the application and the software library.&quot;
+    },
+    &quot;date&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;enum&quot;: [&quot;as-document&quot;, &quot;sent&quot;, &quot;created&quot;, &quot;approved&quot;, &quot;rejected&quot;, &quot;delivered&quot;, &quot;received&quot;, &quot;timestamp&quot;, &quot;witness&quot;, &quot;matches-original&quot;]
+    },
+    &quot;location&quot;: {
+      &quot;$ref&quot;: &quot;https://judsys.github.io/schema/int-address.json&quot;
+    },
+    &quot;file&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;filename&quot;: { &quot;type&quot;: &quot;string&quot; },
+        &quot;size&quot;: { &quot;type&quot;: &quot;number&quot; },
+        &quot;hash&quot;: { &quot;$ref&quot;: &quot;https://judsys.github.io/schema/hash.json&quot; },
+        &quot;had-file&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;,
+          &quot;description&quot;: &quot;If true, it means that the signer app had the file and hashed by itself. If false, it means that hash was computed by someone else&quot;
+        }
+      }
+    },
+    &quot;counter-signs&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/signed-signature.json&quot;
+      }
+    }
+  }
+}
+</artwork></figure>
+</section>
+
+<section anchor="signed-document-signature" title="Signed Document Signature">
+
+<figure><artwork type="json">{
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/signed-document-signature.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 Signed Document Signature&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;cert&quot;, &quot;raw&quot;, &quot;sig&quot;],
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;what&quot;: {
+      &quot;const&quot;: &quot;JUDSYS-1 Signed Document Signature&quot;
+    },
+    &quot;raw&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;A base64 encoding of the document signature.&quot;
+    },
+    &quot;sig&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;A base64 encoding of the signature.&quot;
+    }
+  }
+}
+</artwork></figure>
+</section>
 </section>
 
 <section anchor="encrypted-file-j1e" title="Encrypted File (.j1e)">
@@ -997,7 +1185,7 @@ END IF
 </section>
 </section>
 
-<section anchor="entity-subject-of-issuer" title="Entity (subject of issuer)">
+<section anchor="entity-subject" title="Entity (subject)">
 
 <figure><artwork type="json">{
   &quot;$id&quot;: &quot;https://judsys.github.io/schema/entity.json&quot;,
@@ -1084,45 +1272,24 @@ END IF
   }
 }
 </artwork></figure>
-</section>
-
-<section anchor="certificate" title="Certificate">
 
 <figure><artwork type="json">{
-  &quot;$id&quot;: &quot;https://judsys.github.io/schema/certificate.json&quot;,
-  &quot;title&quot;: &quot;JUDSYS-1 Certificate&quot;,
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/signed-certificate.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 Signed Certificate&quot;,
   &quot;type&quot;: &quot;object&quot;,
-  &quot;required&quot;: [&quot;subject&quot;, &quot;notBefore&quot;, &quot;notAfter&quot;, &quot;serial&quot;, &quot;keys&quot;],
+  &quot;required&quot;: [&quot;cert&quot;, &quot;raw&quot;, &quot;sig&quot;],
+  &quot;additionalProperties&quot;: false,
   &quot;properties&quot;: {
-    &quot;serial&quot;: { &quot;type&quot;: &quot;string&quot; },
-    &quot;subject&quot;: {
-      &quot;$ref&quot;: &quot;https://judsys.github.io/schema/entity.json&quot;
+    &quot;what&quot;: {
+      &quot;const&quot;: &quot;JUDSYS-1 Signed Certificate&quot;
     },
-    &quot;issuer&quot;: {
+    &quot;raw&quot;: {
       &quot;type&quot;: &quot;string&quot;,
-      &quot;description&quot;: &quot;The key ID of the issue-certs key of the issuer.&quot;
+      &quot;description&quot;: &quot;A base64 encoding of the certificate.&quot;
     },
-    &quot;notBefore&quot;: {
+    &quot;sig&quot;: {
       &quot;type&quot;: &quot;string&quot;,
-      &quot;format&quot;: &quot;date-time&quot;
-    },
-    &quot;notAfter&quot;: {
-      &quot;type&quot;: &quot;string&quot;,
-      &quot;format&quot;: &quot;date-time&quot;
-    },
-    &quot;keys&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/key.json&quot;
-      },
-      &quot;minItems&quot;: 1,
-      &quot;uniqueItems&quot;: true
-    },
-    &quot;legal-recognition&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;enum&quot;: [&quot;timestamp&quot;, &quot;matches-original&quot;]
-      }
+      &quot;description&quot;: &quot;A base64 encoding of the signature.&quot;
     }
   }
 }
@@ -1247,6 +1414,77 @@ END IF
 }
 </artwork></figure>
 </section>
+
+<section anchor="certificates-1" title="Certificates">
+
+<section anchor="unsigned-certificate" title="Unsigned Certificate">
+
+<figure><artwork type="json">{
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/unsigned-certificate.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 Unsigned Certificate&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;subject&quot;, &quot;notBefore&quot;, &quot;notAfter&quot;, &quot;serial&quot;, &quot;keys&quot;],
+  &quot;properties&quot;: {
+    &quot;serial&quot;: { &quot;type&quot;: &quot;string&quot; },
+    &quot;subject&quot;: {
+      &quot;$ref&quot;: &quot;https://judsys.github.io/schema/entity.json&quot;
+    },
+    &quot;issuer&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;The key ID of the issue-certs key of the issuer.&quot;
+    },
+    &quot;notBefore&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;notAfter&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;keys&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;https://judsys.github.io/schema/key.json&quot;
+      },
+      &quot;minItems&quot;: 1,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;public-faith&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [&quot;timestamp&quot;, &quot;matches-original&quot;, &quot;delivered&quot;]
+      }
+    }
+  }
+}
+</artwork></figure>
+</section>
+
+<section anchor="signed-certificate" title="Signed Certificate">
+
+<figure><artwork type="json">{
+  &quot;$id&quot;: &quot;https://judsys.github.io/schema/signed-certificate.json&quot;,
+  &quot;title&quot;: &quot;JUDSYS-1 Signed Certificate&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;cert&quot;, &quot;raw&quot;, &quot;sig&quot;],
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;what&quot;: {
+      &quot;const&quot;: &quot;JUDSYS-1 Signed Certificate&quot;
+    },
+    &quot;raw&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;A base64 encoding of the certificate.&quot;
+    },
+    &quot;sig&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;A base64 encoding of the signature.&quot;
+    }
+  }
+}
+</artwork></figure>
+</section>
+</section>
 </section>
 
 </middle>
@@ -1257,7 +1495,7 @@ END IF
 <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
 </references>
 <references title="Informative References">
-<reference anchor='ITI-FAQ-21' target='http://www.iti.gov.br/perguntas-frequentes/41-perguntas-frequentes/567-questoes-juridicas#r21'>
+<reference anchor='ITI-FAQ-21' target='http://www.iti.gov.brA/perguntas-frequentes/41-perguntas-frequentes/567-questoes-juridicas#r21'>
  <front>
  <title>Perguntas Frequentes - Questões Jurídicas - Questão 21</title>
   <author>
