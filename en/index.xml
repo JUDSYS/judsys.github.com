@@ -14,7 +14,7 @@
     <item>
       <title>Open Questions</title>
       <link>https://judsys.github.io/en/open_questions/</link>
-      <pubDate>Sun, 09 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://judsys.github.io/en/open_questions/</guid>
       <description>If you want to help or comment on this project, please file an issue on GitHub (English only) or use one of the following: the Portuguese contact form and the English contact form.
@@ -26,12 +26,12 @@ This restriction is to make the standard easier to implement.
     <item>
       <title>Specification</title>
       <link>https://judsys.github.io/en/spec/</link>
-      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://judsys.github.io/en/spec/</guid>
       <description>The specification is beign developed on github.com/JUDSYS/v1Spec.
 Published versions:
- 2018-09-05 - draft-judsys1-01 (very rough draft) HTML | TXT | XML  </description>
+ 2018-09-11 - draft-judsys1-02 HTML | TXT | XML 2018-09-05 - draft-judsys1-01 (very rough draft) HTML | TXT | XML  </description>
     </item>
     
   </channel>

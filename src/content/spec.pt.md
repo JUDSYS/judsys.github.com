@@ -1,6 +1,6 @@
 ---
 title: "Especificação"
-date: 2018-09-05
+date: 2018-09-11
 draft: false
 type: page
 ---
@@ -9,5 +9,6 @@ A especificação está sendo desenvolvida em [github.com/JUDSYS/v1Spec](https:/
 
 Versões publicadas (apenas em inglês):
 
-1. 2018-09-05 - draft-judsys1-01 (rascunho bem inicial) [HTML](/specs/draft-judsys1-01.html) | [TXT](/specs/draft-judsys1-01.txt) | [XML](/specs/draft-judsys1-01.xml)
+1. 2018-09-11 - draft-judsys1-02 [HTML](/specs/draft-judsys1-02.html) | [TXT](/specs/draft-judsys1-02.txt) | [XML](/specs/draft-judsys1-02.xml)
+2. 2018-09-05 - draft-judsys1-01 (rascunho bem inicial) [HTML](/specs/draft-judsys1-01.html) | [TXT](/specs/draft-judsys1-01.txt) | [XML](/specs/draft-judsys1-01.xml)
 

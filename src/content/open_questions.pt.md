@@ -1,6 +1,6 @@
 ---
 title: "Questões em Aberto"
-date: 2018-09-09
+date: 2018-09-11
 draft: false
 type: page
 toc: true
@@ -77,4 +77,4 @@ Esse sistema com QR Code leva a alguns problemas (e se o atacante der o hash err
 As implementações devem ser obrigadas a informarem o usuário quando há conteúdo dinâmico? Quais formatos devem ser de verificação obrigatória?
 
 
-Veja a seção [9.2. Dynamic Content](/specs/draft-judsys1-latest.html#rfc.section.9.2) da especificação do JUDSYS-1.
+Veja a seção [9.2. Dynamic Content](/specs/draft-judsys1-latest.html#dynamic-content) da especificação do JUDSYS-1.

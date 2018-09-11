@@ -3,23 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://judsys.github.io/en/</loc>
-    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://judsys.github.io/pt/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://judsys.github.io/en/"
-                />
-  </url>
-  
-  <url>
     <loc>https://judsys.github.io/en/open_questions/</loc>
-    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -34,7 +19,7 @@
   
   <url>
     <loc>https://judsys.github.io/en/spec/</loc>
-    <lastmod>2018-09-05T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-11T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -44,6 +29,21 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://judsys.github.io/en/spec/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://judsys.github.io/en/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://judsys.github.io/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://judsys.github.io/en/"
                 />
   </url>
   

@@ -1,6 +1,6 @@
 ---
 title: "Open Questions"
-date: 2018-09-09
+date: 2018-09-11
 draft: false
 type: page
 toc: true
@@ -76,6 +76,6 @@ This QR Code system does lead to few security problems (what if an attacker give
 
 Should implementations be required to inform the user when dynamic content is present? What file formats must be required to check for dynamic content?
 
-See section [9.2. Dynamic Content](/specs/draft-judsys1-latest.html#rfc.section.9.2) of the JUDSYS-1 spec.
+See section [Dynamic Content](/specs/draft-judsys1-latest.html#dynamic-content) of the JUDSYS-1 spec.
 
 
